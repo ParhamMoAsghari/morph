@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Morph.BuildingBlocks</RootNamespace>
+    <Description>Shared primitives: results, errors, paging, time abstraction.</Description>
+  </PropertyGroup>
+</Project>

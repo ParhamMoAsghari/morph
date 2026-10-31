@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <RootNamespace>Morph.Host</RootNamespace>
+    <Description>Morph composition root — combined platform + runtime host.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Morph.Infrastructure\Morph.Infrastructure.csproj" />
+    <ProjectReference Include="..\Morph.Platform.Api\Morph.Platform.Api.csproj" />
+    <ProjectReference Include="..\Morph.Runtime.Api\Morph.Runtime.Api.csproj" />
+    <ProjectReference Include="..\Morph.Plugins\Morph.Plugins.csproj" />
+  </ItemGroup>
+</Project>

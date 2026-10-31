@@ -1,0 +1,25 @@
+{
+  "id": "morph.soap",
+  "version": "1.0.0",
+  "displayName": "SOAP Connector",
+  "author": "Morph",
+  "minMorphVersion": "0.1.0",
+  "entryType": "Morph.Addon.Soap.SoapPlugin",
+  "assembly": "Morph.Addon.Soap.dll",
+  "permissions": [
+    "process.activities",
+    "http.outbound",
+    "secrets.read"
+  ],
+  "capabilities": [
+    "process.activity",
+    "soap.invoke"
+  ],
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "defaultEndpoint": { "type": "string", "format": "uri" },
+      "defaultSoapAction": { "type": "string" }
+    }
+  }
+}

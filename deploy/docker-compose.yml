@@ -1,0 +1,102 @@
+name: morph
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: morph-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-morph}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-morph}
+      POSTGRES_DB: ${POSTGRES_DB:-morph}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-morph} -d ${POSTGRES_DB:-morph}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: morph-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # MinIO CE images were removed from Docker Hub / quay anonymous pulls; use Silo fork (S3-compatible).
+  # Phase 0 Host does not require MinIO to boot. Start with: docker compose --profile storage up -d
+  minio:
+    image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
+    container_name: morph-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-morphminio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-morphminio}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    profiles: ["storage"]
+
+  # Optional physical bucket bootstrap with storage profile (Host also EnsureBucket on create).
+  minio-init:
+    image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
+    container_name: morph-minio-init
+    profiles: ["storage"]
+    depends_on:
+      minio:
+        condition: service_started
+    entrypoint: >
+      /bin/sh -c "
+      sleep 3;
+      mc alias set local http://minio:9000 $${MINIO_ROOT_USER:-morphminio} $${MINIO_ROOT_PASSWORD:-morphminio};
+      mc mb --ignore-existing local/morph;
+      exit 0;
+      "
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-morphminio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-morphminio}
+    restart: "no"
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: morph-mailpit
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  # Optional TLS / reverse proxy — enable with: docker compose --profile edge up
+  caddy:
+    image: caddy:2
+    container_name: morph-caddy
+    profiles: ["edge"]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddydata:/data
+      - caddyconfig:/config
+    depends_on: []
+
+volumes:
+  pgdata:
+  redisdata:
+  miniodata:
+  caddydata:
+  caddyconfig:

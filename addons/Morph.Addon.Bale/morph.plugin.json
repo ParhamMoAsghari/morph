@@ -1,0 +1,28 @@
+{
+  "id": "morph.bale",
+  "version": "1.0.0",
+  "displayName": "Bale Bot",
+  "author": "Morph",
+  "minMorphVersion": "0.1.0",
+  "entryType": "Morph.Addon.Bale.BalePlugin",
+  "assembly": "Morph.Addon.Bale.dll",
+  "permissions": [
+    "http.inbound",
+    "http.outbound",
+    "process.activities",
+    "secrets.read"
+  ],
+  "capabilities": [
+    "bot.inbound",
+    "bot.send",
+    "process.activity"
+  ],
+  "configSchema": {
+    "type": "object",
+    "required": ["botToken"],
+    "properties": {
+      "botToken": { "type": "string" },
+      "webhookSecret": { "type": "string" }
+    }
+  }
+}

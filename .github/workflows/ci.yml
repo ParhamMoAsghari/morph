@@ -1,0 +1,45 @@
+name: ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore
+        run: dotnet restore Morph.sln
+
+      - name: Build
+        run: dotnet build Morph.sln --configuration Release --no-restore
+
+      - name: Unit / architecture tests
+        run: >
+          dotnet test tests/Morph.Architecture.Tests/Morph.Architecture.Tests.csproj
+          --configuration Release
+          --no-build
+          --verbosity normal
+
+      - name: Host integration / API e2e (Testcontainers)
+        run: >
+          dotnet test tests/Morph.Host.Integration.Tests/Morph.Host.Integration.Tests.csproj
+          --configuration Release
+          --no-build
+          --verbosity normal
+
+      - name: Full solution tests
+        run: >
+          dotnet test Morph.sln
+          --configuration Release
+          --no-build
+          --verbosity minimal
+          --filter "FullyQualifiedName!~Morph.Host.Integration.Tests"

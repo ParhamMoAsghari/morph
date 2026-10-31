@@ -1,0 +1,29 @@
+{
+  "id": "morph.mellipayamak",
+  "version": "1.0.0",
+  "displayName": "Mellipayamak SMS",
+  "author": "Morph",
+  "minMorphVersion": "0.1.0",
+  "entryType": "Morph.Addon.Mellipayamak.MellipayamakPlugin",
+  "assembly": "Morph.Addon.Mellipayamak.dll",
+  "permissions": [
+    "sms.send",
+    "process.activities",
+    "http.outbound",
+    "secrets.read"
+  ],
+  "capabilities": [
+    "sms.provider",
+    "process.activity"
+  ],
+  "configSchema": {
+    "type": "object",
+    "required": ["username", "password", "from"],
+    "properties": {
+      "username": { "type": "string" },
+      "password": { "type": "string" },
+      "from": { "type": "string" },
+      "apiBaseUrl": { "type": "string", "format": "uri", "default": "https://rest.payamak-panel.com" }
+    }
+  }
+}

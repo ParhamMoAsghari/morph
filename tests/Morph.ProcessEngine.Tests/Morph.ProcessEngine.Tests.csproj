@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Morph.ProcessEngine.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="NSubstitute" />
+    <PackageReference Include="coverlet.collector">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Morph.ProcessEngine\Morph.ProcessEngine.csproj" />
+    <ProjectReference Include="..\..\src\Morph.BuildingBlocks\Morph.BuildingBlocks.csproj" />
+    <ProjectReference Include="..\..\src\Morph.Access\Morph.Access.csproj" />
+    <ProjectReference Include="..\..\src\Morph.DataPlane\Morph.DataPlane.csproj" />
+    <ProjectReference Include="..\..\src\Morph.Plugins\Morph.Plugins.csproj" />
+  </ItemGroup>
+</Project>

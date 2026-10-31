@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Morph.Infrastructure</RootNamespace>
+    <Description>EF Core, Npgsql, Data Protection, observability, S3, Hangfire wiring.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" />
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" />
+    <PackageReference Include="AspNetCore.HealthChecks.Uris" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+    <PackageReference Include="Npgsql.OpenTelemetry" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+    <PackageReference Include="StackExchange.Redis" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" />
+    <PackageReference Include="AWSSDK.S3" />
+    <PackageReference Include="Hangfire.AspNetCore" />
+    <PackageReference Include="Hangfire.PostgreSql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Morph.BuildingBlocks\Morph.BuildingBlocks.csproj" />
+    <ProjectReference Include="..\Morph.Identity\Morph.Identity.csproj" />
+    <ProjectReference Include="..\Morph.Tenancy\Morph.Tenancy.csproj" />
+    <ProjectReference Include="..\Morph.EntityEngine\Morph.EntityEngine.csproj" />
+    <ProjectReference Include="..\Morph.Access\Morph.Access.csproj" />
+    <ProjectReference Include="..\Morph.DataPlane\Morph.DataPlane.csproj" />
+    <ProjectReference Include="..\Morph.Files\Morph.Files.csproj" />
+    <ProjectReference Include="..\Morph.Messaging\Morph.Messaging.csproj" />
+    <ProjectReference Include="..\Morph.Mail\Morph.Mail.csproj" />
+    <ProjectReference Include="..\Morph.ProcessEngine\Morph.ProcessEngine.csproj" />
+    <ProjectReference Include="..\Morph.Functions.Runtime\Morph.Functions.Runtime.csproj" />
+    <ProjectReference Include="..\Morph.Sms\Morph.Sms.csproj" />
+    <ProjectReference Include="..\Morph.Crypto\Morph.Crypto.csproj" />
+    <ProjectReference Include="..\Morph.ObjectStore\Morph.ObjectStore.csproj" />
+    <ProjectReference Include="..\Morph.StorageEngine\Morph.StorageEngine.csproj" />
+  </ItemGroup>
+</Project>

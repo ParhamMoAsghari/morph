@@ -1,0 +1,25 @@
+apiVersion: morph/v1
+kind: Entity
+slug: employee
+displayName: Employee
+componentUses:
+  - componentUseId: 33333333-3333-3333-3333-333333333301
+    alias: person
+    targetSlug: person
+    mode: Embed
+    pinLatest: true
+    isRequired: true
+  - componentUseId: 33333333-3333-3333-3333-333333333302
+    alias: employment
+    targetSlug: employment
+    mode: Embed
+    pinLatest: true
+    isRequired: true
+fields:
+  - fieldId: 33333333-3333-3333-3333-333333333303
+    slug: employeeNumber
+    displayName: Employee Number
+    dataType: String
+    isRequired: true
+    isUnique: true
+    isIndexed: true

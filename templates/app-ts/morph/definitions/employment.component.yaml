@@ -1,0 +1,14 @@
+apiVersion: morph/v1
+kind: Component
+slug: employment
+displayName: Employment Details
+fields:
+  - fieldId: 22222222-2222-2222-2222-222222222201
+    slug: title
+    displayName: Title
+    dataType: String
+    isRequired: true
+  - fieldId: 22222222-2222-2222-2222-222222222202
+    slug: startedOn
+    displayName: Started On
+    dataType: DateTime

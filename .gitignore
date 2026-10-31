@@ -1,0 +1,54 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+project.lock.json
+artifacts/
+TestResults/
+*.DotSettings.user
+
+## Secrets / local overrides
+appsettings.*.local.json
+*.pfx
+*.pem
+.env
+.env.*
+!.env.example
+.morph/credentials.json
+
+## Node / TypeScript SDKs
+node_modules/
+sdks/typescript/dist/
+templates/**/node_modules/
+
+## OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*~
+
+## Docker volumes (if bind-mounted locally)
+deploy/data/
+
+## Local Host / test noise
+.logs/
+*.err.log
+*.out.log
+coverage-run.txt
+full-test-results.txt
+test-results.txt
+_elsa_probe/
+
+## VitePress
+apps/docs/.vitepress/cache/
+apps/docs/.vitepress/dist/
+apps/docs/node_modules/
+
+## Agent / editor local
+.cursor/
+*.canvas.tsx

@@ -1,0 +1,18 @@
+# Example Morph project descriptor (code-first)
+name: morph-sample
+version: 0.1.0
+apiUrl: http://localhost:5100
+codegen:
+  typescript: src/generated
+  csharp: Generated
+
+plugins:
+  - id: morph.soap
+    version: "1.0.0"
+  - id: morph.mellipayamak
+    version: "1.0.0"
+    configRef: secrets/mellipayamak
+  - id: morph.bale
+    version: "1.0.0"
+    configRef: secrets/bale
+

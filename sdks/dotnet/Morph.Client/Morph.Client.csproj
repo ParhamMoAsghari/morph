@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Morph.Client</RootNamespace>
+    <AssemblyName>Morph.Client</AssemblyName>
+    <Description>Official .NET HTTP client for Morph BaaS (auth, definitions, data, files, access).</Description>
+    <PackageId>Morph.Client</PackageId>
+    <Version>0.5.0</Version>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+</Project>

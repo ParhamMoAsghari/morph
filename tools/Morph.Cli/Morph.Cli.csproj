@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Morph.Cli</RootNamespace>
+    <AssemblyName>morph</AssemblyName>
+    <Description>Morph CLI — schema-as-code, sync, generate, plugins.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Morph.Cli.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\sdks\dotnet\Morph.Client\Morph.Client.csproj" />
+    <ProjectReference Include="..\..\src\Morph.Plugins\Morph.Plugins.csproj" />
+    <ProjectReference Include="..\..\src\Morph.Plugins.Abstractions\Morph.Plugins.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

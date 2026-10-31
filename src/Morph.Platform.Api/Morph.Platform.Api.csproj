@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Morph.Platform.Api</RootNamespace>
+    <Description>Control-plane HTTP endpoints (auth, tenancy stubs).</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="OpenIddict.AspNetCore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Morph.BuildingBlocks\Morph.BuildingBlocks.csproj" />
+    <ProjectReference Include="..\Morph.Identity\Morph.Identity.csproj" />
+    <ProjectReference Include="..\Morph.Tenancy\Morph.Tenancy.csproj" />
+    <ProjectReference Include="..\Morph.EntityEngine\Morph.EntityEngine.csproj" />
+    <ProjectReference Include="..\Morph.Access\Morph.Access.csproj" />
+    <ProjectReference Include="..\Morph.DataPlane\Morph.DataPlane.csproj" />
+    <ProjectReference Include="..\Morph.Mail\Morph.Mail.csproj" />
+    <ProjectReference Include="..\Morph.Messaging\Morph.Messaging.csproj" />
+    <ProjectReference Include="..\Morph.Infrastructure\Morph.Infrastructure.csproj" />
+    <ProjectReference Include="..\Morph.ProcessEngine\Morph.ProcessEngine.csproj" />
+    <ProjectReference Include="..\Morph.Functions.Runtime\Morph.Functions.Runtime.csproj" />
+    <ProjectReference Include="..\Morph.Sms\Morph.Sms.csproj" />
+  </ItemGroup>
+</Project>
+

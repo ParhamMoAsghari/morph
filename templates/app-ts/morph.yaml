@@ -1,0 +1,6 @@
+name: morph-app-ts
+version: 0.1.0
+apiUrl: http://localhost:5100
+codegen:
+  typescript: src/generated
+  csharp: Generated

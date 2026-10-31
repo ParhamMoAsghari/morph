@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Morph.Tenancy</RootNamespace>
+    <Description>Organization / Project / Environment tenancy stubs.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Morph.BuildingBlocks\Morph.BuildingBlocks.csproj" />
+  </ItemGroup>
+</Project>

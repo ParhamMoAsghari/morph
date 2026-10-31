@@ -1,0 +1,16 @@
+{
+  "dotnet.defaultSolution": "Morph.sln",
+  "files.watcherExclude": {
+    "**/bin/**": true,
+    "**/obj/**": true,
+    "**/node_modules/**": true,
+    "**/apps/admin-console/dist/**": true,
+    "**/.logs/**": true
+  },
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/node_modules": true
+  },
+  "dotnet.server.useOmnisharp": false
+}

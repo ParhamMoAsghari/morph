@@ -1,0 +1,10 @@
+apiVersion: morph/v1
+kind: Policy
+name: employee.viewer
+effect: Allow
+actions:
+  - read
+  - list
+resources:
+  - entity:employee
+publish: true

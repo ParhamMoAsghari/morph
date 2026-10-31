@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Morph.Mail</RootNamespace>
+    <Description>SMTP mail via MailKit with built-in templates.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MailKit" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Morph.BuildingBlocks\Morph.BuildingBlocks.csproj" />
+    <ProjectReference Include="..\Morph.Messaging\Morph.Messaging.csproj" />
+  </ItemGroup>
+</Project>

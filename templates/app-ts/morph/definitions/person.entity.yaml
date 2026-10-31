@@ -1,0 +1,18 @@
+apiVersion: morph/v1
+kind: Entity
+slug: person
+displayName: Person
+fields:
+  - fieldId: 11111111-1111-1111-1111-111111111101
+    slug: fullName
+    displayName: Full Name
+    dataType: String
+    isRequired: true
+    isIndexed: true
+  - fieldId: 11111111-1111-1111-1111-111111111102
+    slug: email
+    displayName: Email
+    dataType: String
+    isRequired: true
+    isUnique: true
+    isIndexed: true
