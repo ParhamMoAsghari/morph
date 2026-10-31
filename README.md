@@ -2,14 +2,14 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![CI](https://github.com/ParhamMoAsghari/morph/actions/workflows/ci.yml/badge.svg)](https://github.com/ParhamMoAsghari/morph/actions/workflows/ci.yml)
-[![Docs](https://img.shields.io/badge/docs-live-42b883)](https://morph-docs-pink.vercel.app)
+[![Docs](https://img.shields.io/badge/docs-live-42b883)](https://morph-baas.vercel.app)
 [![.NET](https://img.shields.io/badge/.NET-9-512BD4)](https://dotnet.microsoft.com/)
 
 **Entity-driven Backend-as-a-Service** — define collections in YAML (or the Dev Panel), enforce Access policies (RBAC + ABAC + PBAC), and serve records, files, GraphQL, governed SQL, processes, and functions from a modular **.NET 9** host.
 
 | | |
 |--|--|
-| **Docs** | https://morph-docs-pink.vercel.app |
+| **Docs** | https://morph-baas.vercel.app |
 | **License** | [Apache-2.0](LICENSE) |
 | **Collaborate** | [CONTRIBUTING](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md) · [Security](SECURITY.md) |
 
@@ -65,7 +65,7 @@ $body = @{
 Invoke-RestMethod -Method Post -Uri http://localhost:5100/connect/token -Body $body
 ```
 
-Then create an org → project → environment and bind yourself as `owner` (required for data CRUD). Full walkthrough: [Quickstart](https://morph-docs-pink.vercel.app/guide/quickstart).
+Then create an org → project → environment and bind yourself as `owner` (required for data CRUD). Full walkthrough: [Quickstart](https://morph-baas.vercel.app/guide/quickstart).
 
 ### 3. Dev Panel (optional)
 
@@ -93,7 +93,7 @@ dotnet test tests/Morph.Host.Integration.Tests
 
 | Resource | Link |
 |----------|------|
-| Online docs | https://morph-docs-pink.vercel.app |
+| Online docs | https://morph-baas.vercel.app |
 | Local VitePress | `cd apps/docs && npm install && npm run dev` (port **5180**) |
 | Functional validity | [docs/test-based-functional-validity.md](docs/test-based-functional-validity.md) |
 | Code-first | [docs/code-first.md](docs/code-first.md) |

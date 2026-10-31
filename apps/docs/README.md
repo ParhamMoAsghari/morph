@@ -2,7 +2,7 @@
 
 Source for the public Morph docs site.
 
-**Live:** https://morph-docs-pink.vercel.app
+**Live:** https://morph-baas.vercel.app
 
 ## Local
 
