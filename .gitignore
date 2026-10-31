@@ -52,3 +52,8 @@ apps/docs/node_modules/
 ## Agent / editor local
 .cursor/
 *.canvas.tsx
+
+.vercel/
+apps/docs/.vercel/
+apps/docs/.env.local
+

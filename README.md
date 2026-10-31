@@ -12,7 +12,7 @@
 
 | | |
 |--|--|
-| **Online docs** | Deployed from [`apps/docs`](apps/docs) (VitePress) on Vercel — see the repo About / website link after deploy |
+| **Online docs** | https://morph-docs-pink.vercel.app (VitePress from [`apps/docs`](apps/docs)) |
 | **Local docs** | `cd apps/docs && npm install && npm run dev` (port **5180**) |
 | **Validity gate** | [docs/test-based-functional-validity.md](docs/test-based-functional-validity.md) |
 
