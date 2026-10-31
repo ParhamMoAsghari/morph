@@ -1,70 +1,59 @@
 # Morph
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![CI](https://github.com/ParhamMoAsghari/morph/actions/workflows/ci.yml/badge.svg)](https://github.com/ParhamMoAsghari/morph/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-live-42b883)](https://morph-docs-pink.vercel.app)
 [![.NET](https://img.shields.io/badge/.NET-9-512BD4)](https://dotnet.microsoft.com/)
-[![Docs](https://img.shields.io/badge/docs-VitePress-42b883)](apps/docs)
 
-**Entity-driven Backend-as-a-Service** — define collections in YAML, enforce Access policies, serve records/files/GraphQL/processes from a modular .NET 9 host, and build apps with official SDKs and a Dev Panel.
-
-> Open source under [Apache License 2.0](LICENSE). Collaboration policy: [CONTRIBUTING.md](CONTRIBUTING.md) · [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) · [GOVERNANCE.md](GOVERNANCE.md) · [SECURITY.md](SECURITY.md).
-
-## Documentation
+**Entity-driven Backend-as-a-Service** — define collections in YAML (or the Dev Panel), enforce Access policies (RBAC + ABAC + PBAC), and serve records, files, GraphQL, governed SQL, processes, and functions from a modular **.NET 9** host.
 
 | | |
 |--|--|
-| **Online docs** | https://morph-docs-pink.vercel.app (VitePress from [`apps/docs`](apps/docs)) |
-| **Local docs** | `cd apps/docs && npm install && npm run dev` (port **5180**) |
-| **Validity gate** | [docs/test-based-functional-validity.md](docs/test-based-functional-validity.md) |
+| **Docs** | https://morph-docs-pink.vercel.app |
+| **License** | [Apache-2.0](LICENSE) |
+| **Collaborate** | [CONTRIBUTING](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md) · [Security](SECURITY.md) |
 
-## Prerequisites
+## Why Morph?
 
-- .NET 9 SDK
-- Node.js 18+ (dev panel / docs)
-- Docker Desktop (Postgres 16, Redis 7, MinIO, Mailpit)
+- **Schema as code** — entity definitions, policies, and processes in git; `morph` CLI push / publish / migrate
+- **One Host** — Identity (OpenIddict), tenancy, Access, DataPlane, files, processes, functions, plugins
+- **Dev Panel** — PocketBase-style browser UI that speaks only `@morph/sdk`
+- **Extensible** — capability-based .NET plugins (SMS, bots, SOAP, …) without forking the Host
+- **Proven by tests** — Host e2e + Community Blog panel workflow; see [functional validity](docs/test-based-functional-validity.md)
 
 ## Quick start
 
-### 1. Start dependencies
+### Prerequisites
+
+- .NET 9 SDK
+- Node.js 18+ (Dev Panel / local docs)
+- Docker Desktop (Postgres 16, Redis 7, Mailpit; MinIO optional)
+
+### 1. Dependencies + Host
 
 ```powershell
 cd deploy
 docker compose up -d postgres redis mailpit
-```
 
-Optional MinIO (needs Docker Hub pull access) and TLS edge:
-
-```powershell
-docker compose --profile storage up -d
-docker compose --profile edge up -d caddy
-```
-
-Phase 0 Host boots without MinIO; leave `Morph:ObjectStorage:Endpoint` empty until storage is up.
-### 2. Run the host
-
-```powershell
 cd ..
 dotnet run --project src/Morph.Host --launch-profile http
 ```
 
-On startup the host applies EF migrations and seeds the `morph-platform` OpenIddict client.
-
 - API: http://localhost:5100  
 - Health: http://localhost:5100/health/ready  
-- **Dev panel:** http://localhost:5173 (see `apps/admin-console`)  
-- Mailpit UI: http://localhost:8025  
-- MinIO console: http://localhost:9001  
+- Mailpit: http://localhost:8025  
 
-Configuration uses `appsettings.Development.json` and optional `MORPH_*` environment variables (see `.env.example`). Do not commit real secrets.
+Optional storage: `docker compose --profile storage up -d` (MinIO console :9001).
 
-### 3. Register + obtain a JWT
+Config: `appsettings.Development.json` and `MORPH_*` env vars — see [`.env.example`](.env.example). **Do not commit secrets.**
+
+### 2. Register and get a JWT
 
 ```powershell
-# Register
 Invoke-RestMethod -Method Post -Uri http://localhost:5100/v1/auth/register `
   -ContentType "application/json" `
   -Body '{"email":"dev@morph.local","password":"Password1!","displayName":"Dev"}'
 
-# Token (password grant — confidential morph-platform client; Phase 0 skeleton)
 $body = @{
   grant_type    = "password"
   username      = "dev@morph.local"
@@ -76,6 +65,17 @@ $body = @{
 Invoke-RestMethod -Method Post -Uri http://localhost:5100/connect/token -Body $body
 ```
 
+Then create an org → project → environment and bind yourself as `owner` (required for data CRUD). Full walkthrough: [Quickstart](https://morph-docs-pink.vercel.app/guide/quickstart).
+
+### 3. Dev Panel (optional)
+
+```powershell
+cd apps/admin-console
+npm install
+npm run dev
+# → http://127.0.0.1:5173
+```
+
 ### 4. Build & test
 
 ```powershell
@@ -83,38 +83,24 @@ dotnet build Morph.sln
 dotnet test Morph.sln
 ```
 
-Host API e2e (Testcontainers Postgres — Docker required):
+Host API e2e (Docker / Testcontainers):
 
 ```powershell
 dotnet test tests/Morph.Host.Integration.Tests
 ```
 
-Coverage layers: unit (Access/EntityEngine/Process/Functions/Crypto/…), integration (Postgres/MinIO), architecture (NetArchTest), Host HTTP e2e for Platform + Runtime endpoints, .NET/TS SDK stubs.
+## Documentation
 
-**Functional validity (binding):** [docs/test-based-functional-validity.md](docs/test-based-functional-validity.md) — capability matrix, Dev Panel → API proof (Community Blog e2e), coverage snapshot, and release gates. Latest measured: **~289 .NET tests**, **~77.9% line / ~45.7% branch** (merged Cobertura).
+| Resource | Link |
+|----------|------|
+| Online docs | https://morph-docs-pink.vercel.app |
+| Local VitePress | `cd apps/docs && npm install && npm run dev` (port **5180**) |
+| Functional validity | [docs/test-based-functional-validity.md](docs/test-based-functional-validity.md) |
+| Code-first | [docs/code-first.md](docs/code-first.md) |
+| Plugin addons | [docs/addons/building-an-addon.md](docs/addons/building-an-addon.md) |
+| ADRs | [docs/adr/](docs/adr/) |
 
-## Solution layout
-
-| Project | Role |
-|---------|------|
-| `Morph.BuildingBlocks` | Results, paging, clock |
-| `Morph.Identity` | Platform users + auth contracts |
-| `Morph.Tenancy` | Org / Project / Environment stubs |
-| `Morph.Infrastructure` | EF Core, OpenIddict, DP keys, OTel/Serilog, health |
-| `Morph.Platform.Api` | Auth + tenancy HTTP |
-| `Morph.Runtime.Api` | Data API stubs |
-| `Morph.Plugins.Abstractions` | Addon contracts (manifest, builder, providers) |
-| `Morph.Plugins` | Plugin loader, ALC, permission gates |
-| `Morph.Host` | Composition root |
-| `addons/*` | Reference addons (Soap, Mellipayamak, Bale) |
-| `tools/Morph.Cli` | `morph` CLI — schema sync, generate, plugins |
-| `sdks/dotnet/Morph.Client` | Official .NET HTTP SDK |
-| `sdks/typescript` | `@morph/sdk` TypeScript client |
-| `templates/app-ts` | Code-first starter (no console) |
-
-Code-first guide: [docs/code-first.md](docs/code-first.md) · Plugins: [Building an addon](docs/addons/building-an-addon.md) · [ADR-024](docs/adr/024-plugin-addon-system.md)
-
-### CLI (Phase 5)
+## CLI (schema as code)
 
 ```powershell
 dotnet run --project tools/Morph.Cli -- init
@@ -127,20 +113,31 @@ dotnet run --project tools/Morph.Cli -- generate
 dotnet run --project tools/Morph.Cli -- plugin list
 ```
 
-## Phase 0 acceptance checklist
+## Repository layout
 
-- [x] `dotnet build` succeeds  
-- [x] Compose deps + Host boot; `/health/ready` green when Postgres (and Redis/MinIO) are up  
-- [x] Register + `/connect/token` returns JWT  
-- [x] EF migrations apply for platform schema  
-- [x] NetArchTest + CI workflow stub  
-
-Entity engine, dynamic CRUD, Access, files, Hangfire, and SDKs start in Phase 1+.
+| Path | Role |
+|------|------|
+| `src/Morph.Host` | Composition root (HTTP API) |
+| `src/Morph.*` | Engines & libraries (Access, EntityEngine, DataPlane, Process, Plugins, …) |
+| `addons/*` | Reference plugins (Soap, Mellipayamak, Bale) |
+| `tools/Morph.Cli` | `morph` CLI |
+| `sdks/typescript` | `@morph/sdk` |
+| `sdks/dotnet/Morph.Client` | .NET SDK |
+| `apps/admin-console` | Dev Panel |
+| `apps/docs` | VitePress docs (deployed to Vercel) |
+| `deploy/` | Docker Compose |
+| `tests/` | Unit, architecture, integration, Host e2e |
 
 ## Contributing
 
-Pull requests and issues are welcome. Please read **[CONTRIBUTING.md](CONTRIBUTING.md)** before opening a PR — that document is the collaboration policy (branching, review bar, licensing of contributions). Be kind: **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)**. Report vulnerabilities privately via **[SECURITY.md](SECURITY.md)**.
+PRs and issues are welcome.
+
+1. Read **[CONTRIBUTING.md](CONTRIBUTING.md)** (branching, review bar, contribution license).
+2. Follow the **[Code of Conduct](CODE_OF_CONDUCT.md)**.
+3. Report vulnerabilities privately via **[SECURITY.md](SECURITY.md)** — not public issues.
 
 ## License
 
-Copyright 2026 Morph contributors. Licensed under the **Apache License, Version 2.0** — see [LICENSE](LICENSE) and [NOTICE](NOTICE).
+Copyright 2026 Morph contributors.
+
+Licensed under the **Apache License, Version 2.0** — see [LICENSE](LICENSE) and [NOTICE](NOTICE).

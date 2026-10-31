@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Morph",
   description:
-    "Entity-driven Backend-as-a-Service — auth, collections, access, files, GraphQL, processes, functions, and plugins.",
+    "Open-source entity-driven Backend-as-a-Service — auth, collections, access, files, GraphQL, processes, functions, and plugins.",
   lang: "en-US",
   cleanUrls: true,
   lastUpdated: true,
