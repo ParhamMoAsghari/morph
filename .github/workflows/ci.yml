@@ -22,6 +22,23 @@ jobs:
       - name: Build
         run: dotnet build Morph.sln --configuration Release --no-restore
 
+      # Plugin discovery/loader tests expect first-party addons under src/Morph.Host/plugins
+      # (that folder is gitignored; install from Release build output).
+      - name: Install reference addons into Host plugins folder
+        run: |
+          set -euo pipefail
+          plugins_dir="src/Morph.Host/plugins"
+          mkdir -p "$plugins_dir"
+          for out in \
+            addons/Morph.Addon.Bale/bin/Release/net9.0 \
+            addons/Morph.Addon.Mellipayamak/bin/Release/net9.0 \
+            addons/Morph.Addon.Soap/bin/Release/net9.0
+          do
+            dotnet run --project tools/Morph.Cli --configuration Release --no-build -- \
+              plugin install "$out" --path "$plugins_dir"
+          done
+          ls -la "$plugins_dir"/*/morph.plugin.json
+
       - name: Unit / architecture tests
         run: >
           dotnet test tests/Morph.Architecture.Tests/Morph.Architecture.Tests.csproj
